@@ -13,7 +13,7 @@ services:
         u:sub(-#ns,-1)==ns then\n\t\tu=u:sub(1,-#ns-1)\n\t\tif u=='' then u='/' end\n\tend\n\treturn
         u\nend\nngx.var.upstream_uri=sn(ngx.var.upstream_uri)"
     name: pre-function
-  port: 5052
+  port: 50521
   protocol: http
   routes:
   - id: 7b2dbd94-ec5b-5ae8-b6d5-4c8b16ce0b06
