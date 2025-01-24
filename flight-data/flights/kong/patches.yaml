@@ -2,8 +2,8 @@ _format_version: "1.0"
 
 patches:
   - selectors:
-    - $.services[?(@.name=="flights-service")]
+      - $.services[?(@.name=="flights-service")]
     values:
-      host: flights.kongair
-      port: 8080
+      host: host.docker.internal
+      port: 5052
       protocol: http
