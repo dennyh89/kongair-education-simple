@@ -5,5 +5,5 @@ patches:
       - $.services[?(@.name=="flights-service")]
     values:
       host: host.docker.internal
-      port: 50521
+      port: 5052
       protocol: http
