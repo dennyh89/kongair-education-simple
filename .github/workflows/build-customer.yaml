@@ -5,7 +5,6 @@ on:
   # Run if someone pushes to the feature branch (during development)
   push:
     branches:
-      - feat/*
       - main
     paths:
       - 'sales/customer/opeanapi.yaml'
