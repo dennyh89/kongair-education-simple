@@ -43,30 +43,9 @@ plugins:
 - config:
     add:
       headers:
-      - 'Test: test'
-      json: []
-      json_types: []
-    append:
-      headers: []
-      json: []
-      json_types: []
-    remove:
-      headers: []
-      json: []
-    rename:
-      headers: []
-      json: []
-    replace:
-      headers: []
-      json: []
-      json_types: []
-  enabled: true
+      - x-new-header:value
+      - x-another-header:something
   name: response-transformer
-  protocols:
-  - grpc
-  - grpcs
-  - http
-  - https
 services:
 - host: host.docker.internal
   id: 690e812e-2873-566a-b02f-d03e0bf8ff69
