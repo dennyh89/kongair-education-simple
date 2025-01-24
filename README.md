@@ -25,3 +25,22 @@ The [bookings](/sales/bookings/) service manages customer flight bookings and de
 services.
 * The [experience](experience/) team uses GraphQL and builds "experience" APIs to drive applications. The experience
 APIs aggregate the other KongAir REST APIs to make a dynamic unified API for applications.
+
+
+## Repo setup 
+
+* fork from kong-education/KongAir
+* Settings --> Secrets and Variables --> Actions 
+* New repository secret --> create KONNECT_PAT=<your token>
+* New repository variable --> 
+  * KONNECT_INTERNAL_CP=training-kongair-simplified
+  * KONNECT_ADDR=https://<region>.api.konghq.com
+* Settings --> Actions --> General --> Workflow permissions --> select `Read and write permissions` AND `Allow GitHub Actions to create and approve pull requests`
+* `podman compose -f docker-compose-arm-64.yaml up -d` (maybe need to change docker config.json credStore to osxkeychain)
+* test customer service directly `source PORTS.env` `curl localhost:$KONG_AIR_CUSTOMER_PORT/health`
+
+
+## Test via Gateway
+
+`curl -H "apikey: dfreese-key" localhost:8000/customer`
+`curl localhost:8000/flights | jq`
