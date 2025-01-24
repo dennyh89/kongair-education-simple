@@ -28,11 +28,11 @@ jobs:
       - name: Generate Kong Declarative Configs from Spec
         run: |
           deck file openapi2kong --spec flight-data/flights/openapi.yaml \
-          --output-file flight-data/flights//kong/.generated/kong.yaml
+          --output-file flight-data/flights/kong/.generated/kong.yaml
 
       - name: Add plugin configuration
         run: |
-          deck file merge flight-data/flights//kong/.generated/kong.yaml \
+          deck file merge flight-data/flights/kong/.generated/kong.yaml \
           flight-data/flights/kong/plugins/*.yaml \
           --output-file flight-data/flights/kong/.generated/kong.yaml
 
