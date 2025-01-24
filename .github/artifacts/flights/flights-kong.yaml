@@ -4,7 +4,15 @@ services:
   id: 0cef4d36-9c39-5ac2-9d9f-190d8ea8a252
   name: flights-service
   path: /
-  plugins: []
+  plugins:
+  - config:
+      access:
+      - "local ns='/flights' -- this strips the '/flights' namespace from the path\nlocal
+        nst=ns:sub(-1,-1)=='/' and ns or (ns..'/')\nlocal function sn(u)\n\tlocal
+        s,e=u:find(nst,1,true)\n\tif s then\n\t\treturn u:sub(1,s)..u:sub(e+1,-1)\n\tend\n\tif
+        u:sub(-#ns,-1)==ns then\n\t\tu=u:sub(1,-#ns-1)\n\t\tif u=='' then u='/' end\n\tend\n\treturn
+        u\nend\nngx.var.upstream_uri=sn(ngx.var.upstream_uri)"
+    name: pre-function
   port: 5052
   protocol: http
   routes:
@@ -13,7 +21,7 @@ services:
     - GET
     name: flights-service_get-flights
     paths:
-    - ~/flights$
+    - ~/flights/flights$
     plugins: []
     regex_priority: 200
     strip_path: false
@@ -25,7 +33,7 @@ services:
     - GET
     name: flights-service_get-flight-by-number
     paths:
-    - ~/flights/(?<flightnumber>[^#?/]+)$
+    - ~/flights/flights/(?<flightnumber>[^#?/]+)$
     plugins: []
     regex_priority: 100
     strip_path: false
@@ -37,7 +45,7 @@ services:
     - GET
     name: flights-service_get-flight-details
     paths:
-    - ~/flights/(?<flightnumber>[^#?/]+)/details$
+    - ~/flights/flights/(?<flightnumber>[^#?/]+)/details$
     plugins: []
     regex_priority: 100
     strip_path: false
@@ -49,7 +57,7 @@ services:
     - GET
     name: flights-service_health_get
     paths:
-    - ~/health$
+    - ~/flights/health$
     plugins: []
     regex_priority: 200
     strip_path: false
