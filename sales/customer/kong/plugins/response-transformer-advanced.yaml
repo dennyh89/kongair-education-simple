@@ -1,8 +1,28 @@
 plugins:
-  - enabled: true
-    name: response-transformer
-    config:
+  - config:
       add:
-        body: []
         headers:
-          - "X-MyHeader: Konnect!"
+          - "Test: test"
+        json: []
+        json_types: []
+      append:
+        headers: []
+        json: []
+        json_types: []
+      remove:
+        headers: []
+        json: []
+      rename:
+        headers: []
+        json: []
+      replace:
+        headers: []
+        json: []
+        json_types: []
+    enabled: true
+    name: response-transformer
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
