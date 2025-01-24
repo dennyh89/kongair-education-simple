@@ -5,5 +5,5 @@ patches:
       - $.services[?(@.name=="customer-information-service")]
     values:
       host: host.docker.internal
-      port: 5053
+      port: 5051
       protocol: http
