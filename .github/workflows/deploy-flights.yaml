@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feat/*
     paths:
       - ".github/artifacts/flights/*.yaml"
       - ".github/workflows/deploy-flights.yaml"

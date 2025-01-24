@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - main
-      - feat/*
     paths:
-      - '.github/artifacts/customer/*.yaml'
-      - '.github/workflows/deploy-customer.yaml'
+      - ".github/artifacts/customer/*.yaml"
+      - ".github/workflows/deploy-customer.yaml"
 
   workflow_dispatch:
 
@@ -19,7 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: Check if file exists
         id: check_file
         run: |
@@ -33,7 +32,7 @@ jobs:
       - name: Setup deck
         uses: kong/setup-deck@v1
         with:
-          deck-version: '1.40.3'
+          deck-version: "1.40.3"
           wrapper: false
 
       - name: Validate connectivity to Konnect
@@ -42,7 +41,7 @@ jobs:
           --konnect-control-plane-name ${{vars.KONNECT_INTERNAL_CP}} \
           --konnect-token ${{ secrets.KONNECT_PAT }} \
           --konnect-addr ${{vars.KONNECT_ADDR}}
-      
+
       - name: Apply Configuration to Kong
         run: |
           deck gateway sync --select-tag sales --select-tag customer \
@@ -51,9 +50,9 @@ jobs:
             --konnect-token ${{ secrets.KONNECT_PAT }} \
             --konnect-addr ${{vars.KONNECT_ADDR}}
 
-      - name: Sleep for a couple of seconds 
+      - name: Sleep for a couple of seconds
         run: sleep 10
-      
+
       - name: Run Integration Tests
         run: |
           for test_script in sales/customer/tests/*.sh; do
@@ -64,6 +63,3 @@ jobs:
               exit 1
             fi
           done
-
-
-      
