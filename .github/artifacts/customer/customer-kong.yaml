@@ -52,7 +52,15 @@ services:
   id: 690e812e-2873-566a-b02f-d03e0bf8ff69
   name: customer-information-service
   path: /
-  plugins: []
+  plugins:
+  - config:
+      access:
+      - "local ns='/customers' -- this strips the '/customers' namespace from the
+        path\nlocal nst=ns:sub(-1,-1)=='/' and ns or (ns..'/')\nlocal function sn(u)\n\tlocal
+        s,e=u:find(nst,1,true)\n\tif s then\n\t\treturn u:sub(1,s)..u:sub(e+1,-1)\n\tend\n\tif
+        u:sub(-#ns,-1)==ns then\n\t\tu=u:sub(1,-#ns-1)\n\t\tif u=='' then u='/' end\n\tend\n\treturn
+        u\nend\nngx.var.upstream_uri=sn(ngx.var.upstream_uri)"
+    name: pre-function
   port: 5051
   protocol: http
   routes:
@@ -61,7 +69,7 @@ services:
     - GET
     name: customer-information-service_get-cust-info
     paths:
-    - ~/customer$
+    - ~/customers/customer$
     plugins: []
     regex_priority: 200
     strip_path: false
@@ -73,7 +81,7 @@ services:
     - GET
     name: customer-information-service_health_get
     paths:
-    - ~/health$
+    - ~/customers/health$
     plugins: []
     regex_priority: 200
     strip_path: false
