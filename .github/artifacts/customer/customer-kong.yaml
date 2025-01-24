@@ -44,9 +44,9 @@ plugins:
     add:
       body: []
       headers:
-      - X-MyHeader:Konnect!
+      - 'X-MyHeader: Konnect!'
   enabled: true
-  name: request-transformer-advanced
+  name: response-transformer
 services:
 - host: host.docker.internal
   id: 690e812e-2873-566a-b02f-d03e0bf8ff69
