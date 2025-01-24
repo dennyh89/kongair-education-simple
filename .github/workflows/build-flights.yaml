@@ -30,6 +30,10 @@ jobs:
           deck file openapi2kong --spec flight-data/flights/openapi.yaml \
           --output-file flight-data/flights/kong/.generated/kong.yaml
 
+      - name: Add path-based routing namespace
+        run: |
+          deck file namespace -s  sales/customer/kong/.generated/kong.yaml -o  sales/customer/kong/.generated/kong.yaml --path-prefix=/flights
+
       - name: Add plugin configuration
         run: |
           deck file merge flight-data/flights/kong/.generated/kong.yaml \

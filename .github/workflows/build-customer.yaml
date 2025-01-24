@@ -7,12 +7,11 @@ on:
     branches:
       - main
     paths:
-      - 'sales/customer/opeanapi.yaml'
-      - 'sales/customer/kong/**'
-      - '.github/workflows/build-customer.yaml'
+      - "sales/customer/opeanapi.yaml"
+      - "sales/customer/kong/**"
+      - ".github/workflows/build-customer.yaml"
 
 jobs:
-
   oas-to-kong:
     name: Convert OAS to Kong configurations
     runs-on: ubuntu-latest
@@ -23,14 +22,18 @@ jobs:
       - name: Setup deck
         uses: kong/setup-deck@v1
         with:
-          deck-version: '1.40.3'
+          deck-version: "1.40.3"
           wrapper: false
 
       - name: Generate Kong Declarative Configs from Spec
         run: |
           deck file openapi2kong --spec sales/customer/openapi.yaml \
           --output-file sales/customer/kong/.generated/kong.yaml
-      
+
+      - name: Add path-based routing namespace
+        run: |
+          deck file namespace -s  sales/customer/kong/.generated/kong.yaml -o  sales/customer/kong/.generated/kong.yaml --path-prefix=/customers
+
       - name: Add plugin configuration
         run: |
           deck file merge sales/customer/kong/.generated/kong.yaml \
@@ -66,7 +69,7 @@ jobs:
         run: |
           cp sales/customer/kong/.generated/kong.yaml \
              .github/artifacts/customer/customer-kong.yaml
-           
+
       - name: Validate connectivity to Konnect
         run: |
           deck gateway ping \
@@ -99,4 +102,3 @@ jobs:
           title: "❗PRD❗: Staged changes for Kong Gateway PRD deployment"
           labels: "PRD,kong"
           body: "Merging this PR will result in the following changes deployed to PRD \n\n ```\n${{env.DIFF}}\n```"
-
