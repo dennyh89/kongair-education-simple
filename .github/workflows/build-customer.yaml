@@ -96,9 +96,9 @@ jobs:
       - name: Check status of any files to be committed
         run: git status
 
-      - name: Create PR to stage changes for the Kong Gateway in production
+      - name: Create PR to stage changes for the Kong Gateway in production - Customer API
         uses: peter-evans/create-pull-request@v5
         with:
-          title: "❗PRD❗: Staged changes for Kong Gateway PRD deployment"
-          labels: "PRD,kong"
+          title: "❗PRD❗: Staged changes for Kong Gateway PRD deployment - Customer API"
+          labels: "PRD,kong,customer"
           body: "Merging this PR will result in the following changes deployed to PRD \n\n ```\n${{env.DIFF}}\n```"
