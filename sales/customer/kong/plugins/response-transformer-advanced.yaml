@@ -1,8 +1,8 @@
 plugins:
   - enabled: true
-    name: request-transformer-advanced
+    name: response-transformer
     config:
       add:
         body: []
         headers:
-          - X-MyHeader:Konnect!
+          - "X-MyHeader: Konnect!"
