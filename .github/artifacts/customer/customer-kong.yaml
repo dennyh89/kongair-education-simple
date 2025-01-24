@@ -42,11 +42,31 @@ plugins:
   route: customer-information-service_get-cust-info
 - config:
     add:
-      body: []
       headers:
-      - 'X-MyHeader: Konnect!'
+      - 'Test: test'
+      json: []
+      json_types: []
+    append:
+      headers: []
+      json: []
+      json_types: []
+    remove:
+      headers: []
+      json: []
+    rename:
+      headers: []
+      json: []
+    replace:
+      headers: []
+      json: []
+      json_types: []
   enabled: true
   name: response-transformer
+  protocols:
+  - grpc
+  - grpcs
+  - http
+  - https
 services:
 - host: host.docker.internal
   id: 690e812e-2873-566a-b02f-d03e0bf8ff69
