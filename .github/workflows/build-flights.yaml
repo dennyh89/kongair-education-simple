@@ -102,3 +102,4 @@ jobs:
           title: "❗PRD❗: Staged changes for Kong Gateway PRD deployment - Flights API"
           labels: "PRD,kong,flights"
           body: "Merging this PR will result in the following changes deployed to PRD \n\n ```\n${{env.DIFF}}\n```"
+          branch-suffix: random
