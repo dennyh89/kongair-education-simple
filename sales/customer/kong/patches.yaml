@@ -2,8 +2,8 @@ _format_version: "1.0"
 
 patches:
   - selectors:
-    - $.services[?(@.name=="customer-information-service")]
+      - $.services[?(@.name=="customer-information-service")]
     values:
-      host: kongair-customers-service.kongair.svc.cluster.local
-      port: 8083
+      host: host.docker.internal
+      port: 5053
       protocol: http
