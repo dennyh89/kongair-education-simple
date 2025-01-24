@@ -1,28 +1,7 @@
 plugins:
-  - config:
+  - name: response-transformer
+    config:
       add:
         headers:
-          - "Test: test"
-        json: []
-        json_types: []
-      append:
-        headers: []
-        json: []
-        json_types: []
-      remove:
-        headers: []
-        json: []
-      rename:
-        headers: []
-        json: []
-      replace:
-        headers: []
-        json: []
-        json_types: []
-    enabled: true
-    name: response-transformer
-    protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
+          - x-new-header:value
+          - x-another-header:something
