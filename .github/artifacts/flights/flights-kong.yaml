@@ -5,6 +5,7 @@ plugins:
       headers:
       - x-flights-api:v1
   name: response-transformer
+  service: flights-service
 services:
 - host: host.docker.internal
   id: 0cef4d36-9c39-5ac2-9d9f-190d8ea8a252
