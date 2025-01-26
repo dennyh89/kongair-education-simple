@@ -25,7 +25,7 @@ jobs:
 
       - name: Lint flights spec
         run: |
-          cwd
+          echo $CWD
+          pwd
           ls -al
-          cp /flight-data/flights/opeanapi.yaml .
           inso lint spec opeanapi.yaml
