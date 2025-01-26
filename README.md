@@ -1,3 +1,68 @@
+# Konnect Setup
+Create a control plane named `training-kongair-simplified`.
+Create a dataplane as advised by Konnect on your platform (e.g. docker on mac).
+Wait for the Dataplane to connect.
+
+Create a personal access token and copy it.
+
+# Repo setup 
+
+* fork this repo
+* Settings --> Secrets and Variables --> Actions 
+  * New repository secret --> create KONNECT_PAT=<your token>
+  * New repository variable --> 
+    * KONNECT_INTERNAL_CP=training-kongair-simplified
+    * KONNECT_ADDR=https://<region>.api.konghq.com
+* Settings --> Actions --> General --> Workflow permissions --> select `Read and write permissions` AND `Allow GitHub Actions to create and approve pull requests`
+
+# Setup Services locally
+* `podman compose -f docker-compose-arm-64.yaml up -d` (maybe need to change docker config.json credStore to osxkeychain)
+* `docker-compose -f docker-compose-arm-64.yaml up -d` (maybe need to change docker config.json credStore to osxkeychain)
+
+# Test services directly
+
+User service is not protected, so we can query any user by adding the custom header.
+```
+curl -s -i localhost:5051/health
+curl -s -i -H "x-consumer-username: jdoe" localhost:5051/customer | jq
+curl -s -i -H "x-consumer-username: jsmith" localhost:5051/customer | jq
+
+curl -s -i localhost:5052/health
+curl -s -i localhost:5052/flights | jq
+curl -s -i localhost:5052/flights/KA0292 | jq
+```
+
+# Trigger build and deployments
+
+Go to the repository --> Actions and select e.g. "Build Customer API" and run the workflow via the "run workflow" button.
+Go to the repository --> Actions and select e.g. "Deploy Customer API" and run the workflow via the "run workflow" button.
+
+Repeat this for all other workflows.
+
+# Test via Gateway
+
+```
+curl -s -i -H "apikey: dfreese-key" localhost:8000/customers/health
+curl -s -H "apikey: dfreese-key" localhost:8000/customers/customer | jq
+
+curl -s -i localhost:8000/flights/health
+curl -s -i localhost:8000/flights/flights | jq
+curl -s  localhost:8000/flights/flights/KA0292 | jq
+curl -s  localhost:8000/flights/flights/KA0292/details | jq
+```
+
+# Commit a change to the repository and follow it through the workflows
+* create a branch e.g. "feat/dev-customer-api"
+* Change a plugin configuration of the Customer API
+* commit it
+* file a PR and approve/merge it
+* watch the Build workflow run and how the PR to deployment is created with the Diff
+* approve and merge the PR to main and watch the deployment to be done by the next workflow
+
+
+
+
+######### additional info - may not apply for simplification #########
 # KongAir
 
 An example Kong application based on a fictitious airline, KongAir.
@@ -27,20 +92,3 @@ services.
 APIs aggregate the other KongAir REST APIs to make a dynamic unified API for applications.
 
 
-## Repo setup 
-
-* fork from kong-education/KongAir
-* Settings --> Secrets and Variables --> Actions 
-* New repository secret --> create KONNECT_PAT=<your token>
-* New repository variable --> 
-  * KONNECT_INTERNAL_CP=training-kongair-simplified
-  * KONNECT_ADDR=https://<region>.api.konghq.com
-* Settings --> Actions --> General --> Workflow permissions --> select `Read and write permissions` AND `Allow GitHub Actions to create and approve pull requests`
-* `podman compose -f docker-compose-arm-64.yaml up -d` (maybe need to change docker config.json credStore to osxkeychain)
-* test customer service directly `source PORTS.env` `curl localhost:$KONG_AIR_CUSTOMER_PORT/health`
-
-
-## Test via Gateway
-
-`curl -H "apikey: dfreese-key" localhost:8000/customer`
-`curl localhost:8000/flights | jq`
