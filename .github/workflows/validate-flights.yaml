@@ -1,0 +1,31 @@
+name: Validate Flights API
+
+on:
+  workflow_dispatch:
+  # Run if someone pushes to the feature branch (during development)
+  pull_request:
+    paths:
+      - "flight-data/flights/opeanapi.yaml"
+      - "flight-data/flights/kong/**"
+      - ".github/workflows/build-flights.yaml"
+
+jobs:
+  oas-to-kong:
+    name: Inso Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Insomnia
+        run: |
+          curl -sL https://github.com/Kong/insomnia/releases/download/lib%408.6.1/inso-linux-8.6.1.tar.xz -o inso.tar.xz
+          sudo tar -xf inso.tar.xz -C /tmp/
+          cp /tmp/inso /usr/local/bin/
+
+      - name: Lint flights spec
+        run: |
+          set -x
+          cd $GITHUB_WORKSPACE
+          ls -R
+          inso lint spec flight-data/flights/openapi.yaml
