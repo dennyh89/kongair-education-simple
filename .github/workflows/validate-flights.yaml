@@ -25,7 +25,5 @@ jobs:
 
       - name: Lint flights spec
         run: |
-          set -x
           cd $GITHUB_WORKSPACE
-          ls -R
           inso lint spec flight-data/flights/openapi.yaml
