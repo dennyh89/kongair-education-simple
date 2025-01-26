@@ -28,5 +28,4 @@ jobs:
           set -x
           cd $GITHUB_WORKSPACE
           ls -R
-          cat flight-data/flights/openapi.yaml
-          inso lint spec opeanapi.yaml
+          inso lint spec flight-data/flights/openapi.yaml
