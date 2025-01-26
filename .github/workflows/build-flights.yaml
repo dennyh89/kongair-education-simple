@@ -32,7 +32,7 @@ jobs:
           cp /tmp/inso /usr/local/bin/
 
       - name: Lint blog spec
-        run: inso lint spec ./flight-data/flights/opeanapi.yaml
+        run: inso lint spec flight-data/flights/opeanapi.yaml
 
       - name: Generate Kong Declarative Configs from Spec
         run: |
