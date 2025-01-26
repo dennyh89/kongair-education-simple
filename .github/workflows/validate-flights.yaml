@@ -1,4 +1,4 @@
-name: Build Flights API - Generate Kong Configs
+name: Validate Flights API
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   oas-to-kong:
-    name: Convert OAS to Kong configurations
+    name: Inso Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,4 +25,5 @@ jobs:
 
       - name: Lint flights spec
         run: |
-          inso lint spec ./flight-data/flights/opeanapi.yaml
+          cp /flight-data/flights/opeanapi.yaml .
+          inso lint spec opeanapi.yaml
