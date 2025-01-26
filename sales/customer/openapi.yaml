@@ -10,16 +10,22 @@ info:
   title: Customer Information Service
 
 servers:
-- url: https://api.kong-air.com
-  description: KongAir API Server
-
+  - url: https://api.kong-air.com
+    description: KongAir API Server
+# tags:
+#   - name: sales
+#   - name: customer
 paths:
   /health:
     get:
       summary: Health check endpoint for Kubernetes
+      operationId: health-get
       description: Endpoint that returns the service health status.
+      # tags:
+      #   - sales
+      #   - customer
       responses:
-        '200':
+        "200":
           description: Service is healthy
           content:
             application/json:
@@ -29,7 +35,7 @@ paths:
                   status:
                     type: string
                     example: "OK"
-        '500':
+        "500":
           description: Service is unhealthy
           content:
             application/json:
@@ -44,13 +50,13 @@ paths:
       summary: Fetch a customers information
       description: Fetch a customers information
       tags:
-      - sales
-      - customer
+        - sales
+        - customer
       operationId: get-cust-info
       responses:
-        '200':
-          $ref: '#/components/responses/CustomerSingle'
-        '404':
+        "200":
+          $ref: "#/components/responses/CustomerSingle"
+        "404":
           description: Customer Not Found
 
 components:
@@ -60,7 +66,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Customer'
+            $ref: "#/components/schemas/Customer"
   schemas:
     PaymentMethod:
       type: object
@@ -87,7 +93,7 @@ components:
         payment_methods:
           type: array
           items:
-            $ref: '#/components/schemas/PaymentMethod'
+            $ref: "#/components/schemas/PaymentMethod"
     Customer:
       type: object
       properties:
@@ -98,4 +104,4 @@ components:
         name:
           type: string
         information:
-          $ref: '#/components/schemas/CustomerInformation'
+          $ref: "#/components/schemas/CustomerInformation"

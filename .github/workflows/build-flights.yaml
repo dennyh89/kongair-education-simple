@@ -25,6 +25,15 @@ jobs:
           deck-version: "1.40.3"
           wrapper: false
 
+      - name: Install Insomnia
+        run: |
+          curl -sL https://github.com/Kong/insomnia/releases/download/core%4010.3.0/inso-linux-10.3.0.tar.xz -o inso.tar.xz
+          sudo tar -xf inso.tar.xz -C /tmp/
+          cp /tmp/inso /usr/local/bin/
+
+      - name: Lint blog spec
+        run: inso lint spec ./flight-data/flights/opeanapi.yaml
+
       - name: Generate Kong Declarative Configs from Spec
         run: |
           deck file openapi2kong --spec flight-data/flights/openapi.yaml \
