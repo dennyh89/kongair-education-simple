@@ -1,5 +1,6 @@
 plugins:
   - name: response-transformer
+    service: flights-service
     config:
       add:
         headers:
