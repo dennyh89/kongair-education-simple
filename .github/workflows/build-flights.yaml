@@ -35,7 +35,8 @@ jobs:
         run: |
           ls -al  
           pwd
-          ls -al kongair-education-simple/
+          ls -al flight-data/
+          ls -al flight-data/flights/
           inso lint spec flight-data/flights/opeanapi.yaml
 
       - name: Generate Kong Declarative Configs from Spec
