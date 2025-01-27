@@ -1,10 +1,11 @@
 ---
 _format_version: "3.0"
 add-plugins:
-  - overwrite: false
+  - selectors:
+      - "$..services[0]"
+    overwrite: false
     plugins:
       - name: key-auth
-        service: customer-information-service
         config:
           key_names:
             - apikey
