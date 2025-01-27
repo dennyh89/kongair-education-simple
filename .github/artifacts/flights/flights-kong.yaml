@@ -1,10 +1,4 @@
 _format_version: "3.0"
-plugins:
-- config:
-    add:
-      headers:
-      - x-flights-api:v1
-  name: response-transformer
 services:
 - host: host.docker.internal
   id: 0cef4d36-9c39-5ac2-9d9f-190d8ea8a252
@@ -19,6 +13,11 @@ services:
         u:sub(-#ns,-1)==ns then\n\t\tu=u:sub(1,-#ns-1)\n\t\tif u=='' then u='/' end\n\tend\n\treturn
         u\nend\nngx.var.upstream_uri=sn(ngx.var.upstream_uri)"
     name: pre-function
+  - config:
+      add:
+        headers:
+        - x-flights-api:v1
+    name: response-transformer
   port: 5052
   protocol: http
   routes:
