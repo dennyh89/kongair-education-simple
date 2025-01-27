@@ -1,7 +1,10 @@
-plugins:
-  - name: response-transformer
-    service: flights-service
-    config:
-      add:
-        headers:
-          - x-flights-api:v1
+---
+_format_version: "3.0"
+add-plugins:
+  - overwrite: false
+    plugins:
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - x-flights-api:v1
