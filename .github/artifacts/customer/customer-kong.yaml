@@ -20,11 +20,6 @@ consumers:
   username: jsmith
 plugins:
 - config:
-    key_names:
-    - apikey
-  name: key-auth
-  service: customer-information-service
-- config:
     cache_ttl: 300
     content_type:
     - text/plain
@@ -60,6 +55,10 @@ services:
         u:sub(-#ns,-1)==ns then\n\t\tu=u:sub(1,-#ns-1)\n\t\tif u=='' then u='/' end\n\tend\n\treturn
         u\nend\nngx.var.upstream_uri=sn(ngx.var.upstream_uri)"
     name: pre-function
+  - config:
+      key_names:
+      - apikey
+    name: key-auth
   port: 5051
   protocol: http
   routes:
