@@ -36,7 +36,7 @@ jobs:
 
       - name: Add plugin configuration
         run: |
-          deck file add-plugins  sales/customer/kong/.generated/kong.yaml \
+          deck file add-plugins  -s sales/customer/kong/.generated/kong.yaml \
           sales/customer/kong/plugins/*.yaml \
           --output-file sales/customer/kong/.generated/kong.yaml
 
