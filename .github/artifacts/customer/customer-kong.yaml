@@ -75,10 +75,10 @@ services:
     tags:
     - sales
     - customer
-  - id: 37cbdca9-74d9-51ec-ab8b-008d96f9bd75
+  - id: dfbd601e-ffe9-5225-a8e3-1e41da4e09f4
     methods:
     - GET
-    name: customer-information-service_health_get
+    name: customer-information-service_health-get
     paths:
     - ~/customers/health$
     plugins: []
