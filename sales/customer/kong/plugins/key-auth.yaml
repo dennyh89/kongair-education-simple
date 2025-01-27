@@ -1,6 +1,10 @@
-plugins:
-- name: key-auth
-  service: customer-information-service
-  config:
-    key_names:
-    - apikey
+---
+_format_version: "3.0"
+add-plugins:
+  - overwrite: false
+    plugins:
+      - name: key-auth
+        service: customer-information-service
+        config:
+          key_names:
+            - apikey

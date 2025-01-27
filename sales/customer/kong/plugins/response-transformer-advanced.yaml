@@ -1,7 +1,11 @@
-plugins:
-  - name: response-transformer
-    config:
-      add:
-        headers:
-          - x-new-header:value
-          - x-another-header:something
+---
+_format_version: "3.0"
+add-plugins:
+  - overwrite: false
+    plugins:
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - x-new-header:value
+              - x-another-header:something
