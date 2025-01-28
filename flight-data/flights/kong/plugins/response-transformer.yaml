@@ -9,4 +9,4 @@ add-plugins:
         config:
           add:
             headers:
-              - x-flights-api:v1
+              - x-flights-api:v3
