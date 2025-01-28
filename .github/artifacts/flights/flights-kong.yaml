@@ -16,7 +16,7 @@ services:
   - config:
       add:
         headers:
-        - x-flights-api:v1
+        - x-flights-api:v3
     name: response-transformer
   port: 5052
   protocol: http
